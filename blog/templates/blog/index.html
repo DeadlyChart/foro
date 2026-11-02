@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum</title>
+</head>
+<body>
+<h1>Blog</h1>
+    <a href="{% url 'registro' %}">Registrate</a>
+    <a href="{% url 'login' %}">Logeate</a>
+
+
+    {% if user.is_authenticated %}
+    <a href="{% url 'crear_post' %}">Crear publicación</a>
+    <h1>Bienvenido, {{ user.username }}!</h1>
+    <a href="{% url 'logout' %}">Cerrar sesión</a>
+    
+    {% endif %}
+
+    {% for post in posts %}
+
+        <h2>{{ post.titulo }}</h2>
+
+        <p>{{ post.contenido }}</p>
+
+        <p>Autor: {{ post.autor }}</p>
+
+        <p>Fecha: {{ post.fecha_creacion }}</p>
+        
+        <a href="{% url 'detalle_post' post.pk %}">
+           Ver publicación completa
+        </a>
+        <hr>
+
+        {% if post.imagen %}
+            <img src="{{ post.imagen.url }}" width="300">
+        {% endif %}
+
+        
+        
+
+        <hr>
+    
+</a>
+
+    {% empty %}
+
+        <p>Todavía no hay publicaciones.</p>
+
+    {% endfor %}
+    
+</body>
+</html>
